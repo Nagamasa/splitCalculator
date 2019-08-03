@@ -14,6 +14,8 @@ btn.addEventListener('click', function() {
     let payMore;
     let over;
     let str;
+    let payOk;
+    let change;
     
     if (this.classList.contains('disabled') === true) {
         return;
@@ -23,13 +25,16 @@ btn.addEventListener('click', function() {
     short = price.value - (payLess * num.value); 
     payMore = Math.ceil(price.value / num.value / unit.value) * unit.value;
     over = Math.abs(price.value - (payMore * num.value));
-    
+    payOk = Math.ceil(price.value / num.value);
+    change = payOk * num.value - price.value;
+
     if (over === 0 && short === 0) {
         str = `一人 ${price.value / num.value} 円です。`
     } else {
         str = 
-        `一人 ${payLess} 円だと ${short} 円足りません。` +
-        `一人 ${payMore} 円だと ${over} 円余ります。`; 
+        `一人 ${payLess} 円だと ${short} 円足りません。
+         一人 ${payMore} 円だと ${over} 円余ります。
+         結果的に一人 ${payOk} 円払えば支払い可能です(${change}円のお釣りです)。`; 
     }
 
     result.textContent = str;
